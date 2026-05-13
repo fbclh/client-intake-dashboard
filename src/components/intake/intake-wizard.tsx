@@ -51,6 +51,7 @@ import {
   labelUrgency,
 } from "@/lib/intake-labels";
 import { appendLead } from "@/lib/leads-storage";
+import { computeLeadScore } from "@/lib/lead-score";
 
 const TOTAL_DATA_STEPS = intakeStepFieldGroups.length;
 
@@ -88,6 +89,7 @@ export function IntakeWizard() {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
       status: "new" as const,
+      score: computeLeadScore(values),
     };
     appendLead(lead);
     setSubmitted(true);

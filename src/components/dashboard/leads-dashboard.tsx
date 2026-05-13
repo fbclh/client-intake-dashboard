@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
+import { ScoreBadge } from "@/components/dashboard/score-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,6 +31,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { allStatuses, leadStatusLabels } from "@/lib/lead-status";
+import { computeLeadScore } from "@/lib/lead-score";
 import { readLeads, updateLead } from "@/lib/leads-storage";
 import type { LeadStatus, StoredLead } from "@/types/lead";
 
@@ -164,11 +166,15 @@ export function LeadsDashboard() {
                   <TableHead>Company</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Submitted</TableHead>
+                  <TableHead>Score</TableHead>
                   <TableHead className="w-[140px]">Status</TableHead>
+                  <TableHead className="w-[100px] text-right">Detail</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filtered.map((lead) => (
+                {filtered.map((lead) => {
+                  const score = lead.score ?? computeLeadScore(lead);
+                  return (
                   <TableRow key={lead.id}>
                     <TableCell className="font-medium">{lead.name}</TableCell>
                     <TableCell>{lead.company}</TableCell>
@@ -180,6 +186,9 @@ export function LeadsDashboard() {
                         dateStyle: "medium",
                         timeStyle: "short",
                       })}
+                    </TableCell>
+                    <TableCell>
+                      <ScoreBadge score={score} />
                     </TableCell>
                     <TableCell>
                       <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -205,8 +214,14 @@ export function LeadsDashboard() {
                         </Select>
                       </div>
                     </TableCell>
+                    <TableCell className="text-right">
+                      <Button asChild variant="ghost" size="sm">
+                        <Link href={`/dashboard/leads/${lead.id}`}>View</Link>
+                      </Button>
+                    </TableCell>
                   </TableRow>
-                ))}
+                );
+                })}
               </TableBody>
             </Table>
           )}
