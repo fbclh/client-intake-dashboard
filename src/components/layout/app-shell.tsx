@@ -11,19 +11,33 @@ export function AppShell({
   className?: string;
 }) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col">
+      <div
+        className="pointer-events-none fixed inset-0 -z-10 bg-background"
+        aria-hidden
+      >
+        <div
+          className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsl(var(--brand-muted)),transparent)]"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,hsl(var(--surface))_0%,hsl(var(--background))_40%)]"
+          aria-hidden
+        />
+      </div>
       <SiteHeader />
       <main
         className={cn(
-          "container flex-1 max-w-5xl px-4 py-8 md:py-10",
+          "mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 md:py-10",
           className,
         )}
       >
         {children}
       </main>
-      <footer className="border-t py-6 text-center text-sm text-muted-foreground">
-        <div className="container max-w-5xl px-4">
-          Lead qualification for service businesses.
+      <footer className="mt-auto border-t border-border/80 bg-card/50">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-6 text-center text-sm text-muted-foreground sm:flex-row sm:px-6 sm:text-left">
+          <span>Client Intake Dashboard</span>
+          <span>Lead qualification for service businesses</span>
         </div>
       </footer>
     </div>

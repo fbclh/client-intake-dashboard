@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { ArrowLeft } from "lucide-react";
 
 import { ScoreBadge } from "@/components/dashboard/score-badge";
 import { Badge } from "@/components/ui/badge";
@@ -76,12 +77,15 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
   return (
     <div className="space-y-8">
       <div>
-        <Button variant="ghost" size="sm" className="-ml-2 mb-2" asChild>
-          <Link href="/dashboard">← Dashboard</Link>
+        <Button variant="ghost" size="sm" className="-ml-2 mb-3 gap-1.5 text-muted-foreground" asChild>
+          <Link href="/dashboard">
+            <ArrowLeft className="h-4 w-4" aria-hidden />
+            Dashboard
+          </Link>
         </Button>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-1">
-            <h1 className="text-2xl font-bold tracking-tight">{lead.name}</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">{lead.name}</h1>
             <p className="text-muted-foreground">{lead.company}</p>
             <p className="text-sm text-muted-foreground">
               Submitted{" "}
@@ -101,8 +105,8 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
+      <Card className="overflow-hidden">
+        <CardHeader className="border-b border-border/60 bg-surface/40">
           <CardTitle>Submission</CardTitle>
           <CardDescription>What they told you on the intake form.</CardDescription>
         </CardHeader>
@@ -128,8 +132,8 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
       </Card>
 
       {breakdown && (
-        <Card>
-          <CardHeader>
+        <Card className="overflow-hidden">
+          <CardHeader className="border-b border-border/60 bg-surface/40">
             <CardTitle>Score explanation</CardTitle>
             <CardDescription>
               Points are based on budget, urgency, timeline, and company size.
@@ -137,9 +141,9 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="overflow-hidden rounded-lg border">
+            <div className="overflow-hidden rounded-lg border border-border/80">
               <table className="w-full text-sm">
-                <thead className="bg-muted/50 text-left text-xs font-medium uppercase text-muted-foreground">
+                <thead className="bg-surface text-left text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   <tr>
                     <th className="px-4 py-2">Signal</th>
                     <th className="px-4 py-2">Answer</th>

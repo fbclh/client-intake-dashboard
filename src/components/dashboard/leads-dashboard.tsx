@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  Filter,
+  Inbox,
+  Search,
+  SearchX,
+  Users,
+} from "lucide-react";
 
 import { ScoreBadge } from "@/components/dashboard/score-badge";
 import { Badge } from "@/components/ui/badge";
@@ -52,6 +59,29 @@ function statusBadgeVariant(
   }
 }
 
+function EmptyState({
+  icon: Icon,
+  title,
+  description,
+  action,
+}: {
+  icon: typeof Inbox;
+  title: string;
+  description: string;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-surface/40 px-6 py-14 text-center">
+      <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-border/80 bg-card shadow-sm">
+        <Icon className="h-6 w-6 text-brand" aria-hidden />
+      </span>
+      <p className="text-sm font-medium text-foreground">{title}</p>
+      <p className="mt-1 max-w-sm text-sm text-muted-foreground">{description}</p>
+      {action ? <div className="mt-5">{action}</div> : null}
+    </div>
+  );
+}
+
 export function LeadsDashboard() {
   const [leads, setLeads] = useState<StoredLead[]>([]);
   const [statusFilter, setStatusFilter] = useState<LeadStatus | "all">("all");
@@ -96,131 +126,171 @@ export function LeadsDashboard() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader className="pb-4">
-          <CardTitle>Filters</CardTitle>
-          <CardDescription>
-            Narrow leads by pipeline status or free-text search.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-end">
-          <div className="grid w-full gap-2 sm:max-w-xs">
-            <Label htmlFor="status-filter">Status</Label>
-            <Select
-              value={statusFilter}
-              onValueChange={(v) =>
-                setStatusFilter(v as LeadStatus | "all")
-              }
-            >
-              <SelectTrigger id="status-filter">
-                <SelectValue placeholder="All statuses" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All statuses</SelectItem>
-                {allStatuses.map((s) => (
-                  <SelectItem key={s} value={s}>
-                    {leadStatusLabels[s]}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+      <Card className="overflow-hidden">
+        <CardHeader className="border-b border-border/60 bg-surface/40 pb-4">
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/80 bg-card shadow-sm">
+              <Filter className="h-4 w-4 text-brand" aria-hidden />
+            </span>
+            <div>
+              <CardTitle className="text-base">Filters</CardTitle>
+              <CardDescription>
+                Narrow leads by pipeline status or free-text search.
+              </CardDescription>
+            </div>
           </div>
-          <div className="grid w-full flex-1 gap-2">
-            <Label htmlFor="lead-search">Search</Label>
-            <Input
-              id="lead-search"
-              placeholder="Name, email, company, or notes…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+        </CardHeader>
+        <CardContent className="pt-5">
+          <div className="grid gap-4 sm:grid-cols-[minmax(0,220px)_1fr] sm:items-end">
+            <div className="grid gap-2">
+              <Label htmlFor="status-filter" className="text-xs uppercase tracking-wide text-muted-foreground">
+                Status
+              </Label>
+              <Select
+                value={statusFilter}
+                onValueChange={(v) =>
+                  setStatusFilter(v as LeadStatus | "all")
+                }
+              >
+                <SelectTrigger id="status-filter">
+                  <SelectValue placeholder="All statuses" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All statuses</SelectItem>
+                  {allStatuses.map((s) => (
+                    <SelectItem key={s} value={s}>
+                      {leadStatusLabels[s]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="lead-search" className="text-xs uppercase tracking-wide text-muted-foreground">
+                Search
+              </Label>
+              <div className="relative">
+                <Search
+                  className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                  aria-hidden
+                />
+                <Input
+                  id="lead-search"
+                  className="pl-9"
+                  placeholder="Name, email, company, or notes…"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Leads</CardTitle>
-          <CardDescription>
-            {filtered.length} of {leads.length} shown
-          </CardDescription>
+      <Card className="overflow-hidden">
+        <CardHeader className="flex flex-row flex-wrap items-end justify-between gap-3 border-b border-border/60 bg-surface/40 pb-4">
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/80 bg-card shadow-sm">
+              <Users className="h-4 w-4 text-brand" aria-hidden />
+            </span>
+            <div>
+              <CardTitle className="text-base">Leads</CardTitle>
+              <CardDescription>
+                {filtered.length} of {leads.length} shown
+              </CardDescription>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0 sm:p-0">
           {leads.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed py-12 text-center">
-              <p className="text-sm text-muted-foreground">
-                No leads yet. Submit the intake form to create your first lead.
-              </p>
-              <Button asChild variant="secondary" size="sm">
-                <Link href="/intake">Go to intake</Link>
-              </Button>
+            <div className="p-6">
+              <EmptyState
+                icon={Inbox}
+                title="No leads yet"
+                description="Submit the intake form to create your first lead. Data is stored in this browser."
+                action={
+                  <Button asChild>
+                    <Link href="/intake">Go to intake</Link>
+                  </Button>
+                }
+              />
             </div>
           ) : filtered.length === 0 ? (
-            <p className="py-8 text-center text-sm text-muted-foreground">
-              No leads match your filters.
-            </p>
+            <div className="p-6">
+              <EmptyState
+                icon={SearchX}
+                title="No matching leads"
+                description="Try clearing your search or choosing a different status filter."
+              />
+            </div>
           ) : (
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow className="hover:bg-transparent">
                   <TableHead>Name</TableHead>
                   <TableHead>Company</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Submitted</TableHead>
                   <TableHead>Score</TableHead>
-                  <TableHead className="w-[140px]">Status</TableHead>
-                  <TableHead className="w-[100px] text-right">Detail</TableHead>
+                  <TableHead className="min-w-[160px]">Status</TableHead>
+                  <TableHead className="w-[88px] text-right"> </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filtered.map((lead) => {
                   const score = lead.score ?? computeLeadScore(lead);
                   return (
-                  <TableRow key={lead.id}>
-                    <TableCell className="font-medium">{lead.name}</TableCell>
-                    <TableCell>{lead.company}</TableCell>
-                    <TableCell className="max-w-[200px] truncate">
-                      {lead.email}
-                    </TableCell>
-                    <TableCell className="whitespace-nowrap text-muted-foreground">
-                      {new Date(lead.createdAt).toLocaleString(undefined, {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      })}
-                    </TableCell>
-                    <TableCell>
-                      <ScoreBadge score={score} />
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                        <Badge variant={statusBadgeVariant(lead.status)}>
-                          {leadStatusLabels[lead.status]}
-                        </Badge>
-                        <Select
-                          value={lead.status}
-                          onValueChange={(v) =>
-                            setStatus(lead.id, v as LeadStatus)
-                          }
-                        >
-                          <SelectTrigger className="h-8 w-full min-w-[8rem] text-xs">
-                            <SelectValue placeholder="Set status" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {allStatuses.map((s) => (
-                              <SelectItem key={s} value={s}>
-                                {leadStatusLabels[s]}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button asChild variant="ghost" size="sm">
-                        <Link href={`/dashboard/leads/${lead.id}`}>View</Link>
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                );
+                    <TableRow key={lead.id}>
+                      <TableCell className="font-medium">{lead.name}</TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {lead.company}
+                      </TableCell>
+                      <TableCell className="max-w-[200px] truncate text-muted-foreground">
+                        {lead.email}
+                      </TableCell>
+                      <TableCell className="whitespace-nowrap text-xs text-muted-foreground">
+                        {new Date(lead.createdAt).toLocaleString(undefined, {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        })}
+                      </TableCell>
+                      <TableCell>
+                        <ScoreBadge score={score} />
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                          <Badge
+                            variant={statusBadgeVariant(lead.status)}
+                            className="w-fit"
+                          >
+                            {leadStatusLabels[lead.status]}
+                          </Badge>
+                          <Select
+                            value={lead.status}
+                            onValueChange={(v) =>
+                              setStatus(lead.id, v as LeadStatus)
+                            }
+                          >
+                            <SelectTrigger className="h-8 w-full min-w-[8.5rem] text-xs">
+                              <SelectValue placeholder="Set status" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {allStatuses.map((s) => (
+                                <SelectItem key={s} value={s}>
+                                  {leadStatusLabels[s]}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button asChild variant="ghost" size="sm">
+                          <Link href={`/dashboard/leads/${lead.id}`}>View</Link>
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
                 })}
               </TableBody>
             </Table>

@@ -52,8 +52,15 @@ import {
 } from "@/lib/intake-labels";
 import { appendLead } from "@/lib/leads-storage";
 import { computeLeadScore } from "@/lib/lead-score";
+import { cn } from "@/lib/utils";
 
 const TOTAL_DATA_STEPS = intakeStepFieldGroups.length;
+
+const STEP_META = [
+  { title: "Contact", hint: "Who you are" },
+  { title: "Project", hint: "What you need" },
+  { title: "Qualification", hint: "Timing & fit" },
+] as const;
 
 export function IntakeWizard() {
   const [step, setStep] = useState(0);
@@ -97,10 +104,10 @@ export function IntakeWizard() {
 
   if (submitted) {
     return (
-      <Card className="mx-auto max-w-lg">
+      <Card className="mx-auto max-w-lg border-brand/20 shadow-card">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-secondary">
-            <CheckCircle2 className="h-7 w-7 text-primary" aria-hidden />
+          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full border border-brand/20 bg-brand-muted">
+            <CheckCircle2 className="h-8 w-8 text-brand" aria-hidden />
           </div>
           <CardTitle>Thank you — we received your intake</CardTitle>
           <CardDescription>
@@ -121,35 +128,73 @@ export function IntakeWizard() {
   }
 
   return (
-    <Card className="mx-auto max-w-xl">
-      <CardHeader>
-        <div className="flex items-center justify-between gap-4">
+    <Card className="mx-auto max-w-xl overflow-hidden shadow-card">
+      <CardHeader className="space-y-5 border-b border-border/60 bg-surface/40">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <CardTitle>Client intake</CardTitle>
+            <CardTitle>
+              {step < TOTAL_DATA_STEPS
+                ? STEP_META[step].title
+                : "Review & submit"}
+            </CardTitle>
             <CardDescription>
-              Tell us about your needs. It only takes a minute.
+              {step < TOTAL_DATA_STEPS
+                ? STEP_META[step].hint
+                : "Confirm your answers before sending."}
             </CardDescription>
           </div>
-          <span className="shrink-0 rounded-full border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+          <span className="w-fit shrink-0 rounded-full border border-border/80 bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
             {progressLabel}
           </span>
         </div>
+
+        <ol className="flex gap-2" aria-label="Form steps">
+          {STEP_META.map((meta, i) => {
+            const done = step > i;
+            const current = step === i;
+            return (
+              <li key={meta.title} className="flex flex-1 flex-col gap-1">
+                <div
+                  className={cn(
+                    "h-1.5 rounded-full transition-colors",
+                    done || current ? "bg-brand" : "bg-border",
+                    current && "ring-2 ring-brand/25 ring-offset-1",
+                  )}
+                  aria-hidden
+                />
+                <span
+                  className={cn(
+                    "text-[11px] font-medium leading-tight sm:text-xs",
+                    current
+                      ? "text-foreground"
+                      : done
+                        ? "text-muted-foreground"
+                        : "text-muted-foreground/70",
+                  )}
+                >
+                  {meta.title}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+
         <div
-          className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-secondary"
+          className="h-2 w-full overflow-hidden rounded-full bg-secondary"
           role="progressbar"
           aria-valuemin={0}
           aria-valuemax={TOTAL_DATA_STEPS + 1}
           aria-valuenow={Math.min(step + 1, TOTAL_DATA_STEPS + 1)}
         >
           <div
-            className="h-full bg-primary transition-[width] duration-300"
+            className="h-full rounded-full bg-brand transition-[width] duration-300"
             style={{
               width: `${((Math.min(step, TOTAL_DATA_STEPS) + 1) / (TOTAL_DATA_STEPS + 1)) * 100}%`,
             }}
           />
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -157,7 +202,7 @@ export function IntakeWizard() {
             noValidate
           >
             {step === 0 && (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <FormField
                   control={form.control}
                   name="name"
@@ -214,7 +259,7 @@ export function IntakeWizard() {
             )}
 
             {step === 1 && (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <FormField
                   control={form.control}
                   name="serviceType"
@@ -290,7 +335,7 @@ export function IntakeWizard() {
             )}
 
             {step === 2 && (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <FormField
                   control={form.control}
                   name="urgency"
@@ -379,7 +424,7 @@ export function IntakeWizard() {
               <ReviewStep values={form.getValues()} onEdit={setStep} />
             )}
 
-            <div className="flex flex-wrap justify-between gap-2 pt-2">
+            <div className="flex flex-wrap justify-between gap-3 border-t border-border/60 pt-6">
               {step > 0 && step <= TOTAL_DATA_STEPS && (
                 <Button type="button" variant="outline" onClick={goBack}>
                   Back
@@ -440,7 +485,7 @@ function ReviewStep({
       <p className="text-sm text-muted-foreground">
         Review your answers. You can jump back to any section to make changes.
       </p>
-      <dl className="divide-y rounded-lg border">
+      <dl className="divide-y divide-border/60 overflow-hidden rounded-lg border border-border/80 bg-surface/30">
         {rows.map((row) => (
           <div
             key={row.label}

@@ -15,7 +15,7 @@ export default async function LeadDetailPage({
   const { id } = await params;
 
   return (
-    <div className="mx-auto w-full max-w-3xl py-2">
+    <div className="mx-auto w-full max-w-3xl">
       <LeadDetailView leadId={id} />
     </div>
   );
