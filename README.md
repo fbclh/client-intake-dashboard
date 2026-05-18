@@ -18,13 +18,13 @@ The focus is on:
 ## Preview
 
 ### Homepage
-![Homepage workflow entry](public/screenshots/homepage.png)
+![Homepage workflow entry](public/screenshots/Home.png)
 
 ### Intake
-![Multi-step intake form](public/screenshots/intake.png)
+![Multi-step intake form](public/screenshots/Intake.png)
 
 ### Dashboard
-![Lead dashboard](public/screenshots/dashboard.png)
+![Lead dashboard](public/screenshots/Dashboard.png)
 
 ---
 
