@@ -39,7 +39,7 @@ import {
 } from "@/components/ui/table";
 import { allStatuses, leadStatusLabels } from "@/lib/lead-status";
 import { computeLeadScore } from "@/lib/lead-score";
-import { readLeads, updateLead } from "@/lib/leads-storage";
+import { ensureDemoLeads, readLeads, updateLead } from "@/lib/leads-storage";
 import type { LeadStatus, StoredLead } from "@/types/lead";
 
 function statusBadgeVariant(
@@ -91,6 +91,7 @@ export function LeadsDashboard() {
 
   useEffect(() => {
     function refresh() {
+      ensureDemoLeads();
       setLeads(readLeads());
     }
     refresh();
@@ -126,8 +127,51 @@ export function LeadsDashboard() {
     setLeads(readLeads());
   }
 
+  const stats = useMemo(() => {
+    const scores = leads.map((lead) => lead.score ?? computeLeadScore(lead));
+    const qualified = leads.filter((lead) => lead.status === "qualified").length;
+    const hot = scores.filter((score) => score >= 70).length;
+    const averageScore =
+      scores.length > 0
+        ? Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length)
+        : 0;
+
+    return {
+      total: leads.length,
+      qualified,
+      averageScore,
+      hot,
+    };
+  }, [leads]);
+
+  const kpiItems = [
+    { label: "Total leads", value: stats.total.toString() },
+    { label: "Qualified leads", value: stats.qualified.toString() },
+    { label: "Average score", value: stats.total > 0 ? `${stats.averageScore}` : "—" },
+    { label: "Hot leads", value: stats.hot.toString(), hint: "Score 70+" },
+  ] as const;
+
   return (
     <div className="space-y-4">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {kpiItems.map((item) => (
+          <div
+            key={item.label}
+            className="rounded-xl border border-border/80 bg-card px-4 py-3 shadow-card"
+          >
+            <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+              {item.label}
+            </p>
+            <p className="mt-1 text-2xl font-semibold tabular-nums tracking-tight text-foreground">
+              {item.value}
+            </p>
+            {"hint" in item && item.hint ? (
+              <p className="mt-0.5 text-[11px] text-muted-foreground">{item.hint}</p>
+            ) : null}
+          </div>
+        ))}
+      </div>
+
       <Card className="overflow-hidden">
         <CardHeader className="border-b border-border/60 bg-surface/40 py-3.5">
           <div className="flex items-center gap-2">
@@ -204,25 +248,23 @@ export function LeadsDashboard() {
           </div>
         </CardHeader>
         <CardContent className="p-0 sm:p-0">
-          {leads.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="p-4">
               <EmptyState
-                icon={Inbox}
-                title="No leads yet"
-                description="Submit the intake form to create your first lead. Data is stored in this browser."
-                action={
-                  <Button asChild>
-                    <Link href="/intake">Go to intake</Link>
-                  </Button>
+                icon={leads.length === 0 ? Inbox : SearchX}
+                title={leads.length === 0 ? "No leads yet" : "No matching leads"}
+                description={
+                  leads.length === 0
+                    ? "Submit the intake form to add your first lead."
+                    : "Try clearing your search or choosing a different status filter."
                 }
-              />
-            </div>
-          ) : filtered.length === 0 ? (
-            <div className="p-4">
-              <EmptyState
-                icon={SearchX}
-                title="No matching leads"
-                description="Try clearing your search or choosing a different status filter."
+                action={
+                  leads.length === 0 ? (
+                    <Button asChild>
+                      <Link href="/intake">Go to intake</Link>
+                    </Button>
+                  ) : undefined
+                }
               />
             </div>
           ) : (

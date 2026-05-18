@@ -34,11 +34,10 @@ export function AppShell({
       >
         {children}
       </main>
-      <footer className="mt-auto border-t border-border/80 bg-card/50">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-1.5 px-4 py-4 text-center text-xs text-muted-foreground sm:flex-row sm:px-6 sm:text-left">
-          <span>Client Intake Dashboard</span>
-          <span>Lead qualification for service businesses</span>
-        </div>
+      <footer className="mt-auto border-t border-border/40">
+        <p className="mx-auto max-w-6xl px-4 py-3 text-center text-[11px] leading-relaxed text-muted-foreground/75 sm:px-6">
+          Client Intake · Lead qualification for service businesses
+        </p>
       </footer>
     </div>
   );

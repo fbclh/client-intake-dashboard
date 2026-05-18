@@ -1,3 +1,4 @@
+import { getDemoLeads } from "@/lib/demo-leads";
 import type { StoredLead } from "@/types/lead";
 
 const STORAGE_KEY = "client-intake-dashboard:leads";
@@ -15,6 +16,21 @@ function isStoredLead(v: unknown): v is StoredLead {
     typeof v.email === "string" &&
     typeof v.status === "string"
   );
+}
+
+/** Seeds sample leads when storage is empty (first visit only). */
+export function ensureDemoLeads(): void {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed: unknown = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return;
+    }
+    writeLeads(getDemoLeads());
+  } catch {
+    writeLeads(getDemoLeads());
+  }
 }
 
 export function readLeads(): StoredLead[] {
