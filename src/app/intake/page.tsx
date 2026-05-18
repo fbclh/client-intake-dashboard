@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function IntakePage() {
   return (
-    <div className="mx-auto w-full max-w-3xl space-y-4 pb-1">
+    <div className="mx-auto w-full min-w-0 max-w-3xl space-y-4 pb-1">
       <header className="space-y-2 border-b border-border/60 pb-4">
         <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
           Client intake
@@ -27,7 +27,7 @@ export default function IntakePage() {
       <IntakePageIntro />
 
       <section aria-labelledby="intake-form-label" className="space-y-2.5">
-        <div className="flex items-baseline justify-between gap-3">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
           <h2
             id="intake-form-label"
             className="text-sm font-medium text-foreground"

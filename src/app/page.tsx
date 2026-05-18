@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-5 pb-2 md:gap-6">
-      <section className="relative overflow-hidden rounded-2xl border border-border/80 bg-card px-5 py-5 shadow-card sm:px-7 sm:py-6">
+    <div className="mx-auto flex w-full min-w-0 max-w-3xl flex-col gap-5 pb-2 md:gap-6">
+      <section className="relative overflow-hidden rounded-2xl border border-border/80 bg-card px-4 py-4 shadow-card sm:px-7 sm:py-6">
         <div
           className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-brand-muted blur-3xl"
           aria-hidden
@@ -21,7 +21,7 @@ export default function HomePage() {
             Lead qualification workspace
           </p>
           <div className="space-y-2">
-            <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem] sm:leading-tight">
+            <h1 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl sm:leading-tight lg:text-[1.75rem]">
               Turn intake submissions into a qualified pipeline
             </h1>
             <p className="max-w-lg text-sm leading-snug text-muted-foreground">
@@ -50,7 +50,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="grid gap-2 sm:grid-cols-3">
+      <section className="grid grid-cols-1 gap-2.5 min-[480px]:grid-cols-2 lg:grid-cols-3">
         {[
           {
             icon: ClipboardList,

@@ -20,7 +20,7 @@ const items = [
 
 export function IntakePageIntro() {
   return (
-    <div className="grid gap-2.5 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item) => (
         <div
           key={item.title}

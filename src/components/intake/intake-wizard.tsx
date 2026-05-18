@@ -154,7 +154,7 @@ export function IntakeWizard() {
         </div>
 
         <nav aria-label="Form progress">
-          <ol className="grid grid-cols-3 gap-2">
+          <ol className="grid grid-cols-1 gap-2 min-[520px]:grid-cols-3">
             {STEP_META.map((meta, i) => {
               const done = step > i;
               const current = step === i;
@@ -163,7 +163,7 @@ export function IntakeWizard() {
                 <li
                   key={meta.title}
                   className={cn(
-                    "rounded-lg border px-2 py-2 sm:px-2.5",
+                    "rounded-lg border px-2.5 py-2 sm:px-2.5",
                     current && "border-brand/30 bg-card shadow-sm",
                     done && !current && "border-border/60 bg-brand-muted/40",
                     upcoming && "border-transparent bg-transparent",
@@ -193,7 +193,7 @@ export function IntakeWizard() {
                       >
                         {meta.title}
                       </span>
-                      <span className="hidden text-[11px] text-muted-foreground sm:block">
+                      <span className="hidden text-[11px] text-muted-foreground min-[520px]:block">
                         {meta.hint}
                       </span>
                     </span>

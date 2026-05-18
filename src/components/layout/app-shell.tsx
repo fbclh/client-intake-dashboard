@@ -28,7 +28,7 @@ export function AppShell({
       <SiteHeader />
       <main
         className={cn(
-          "mx-auto w-full max-w-6xl flex-1 px-4 py-5 sm:px-6 sm:py-6 md:py-7",
+          "mx-auto w-full min-w-0 max-w-6xl flex-1 px-4 py-5 sm:px-6 sm:py-6 md:py-7 lg:px-8",
           className,
         )}
       >

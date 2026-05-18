@@ -170,11 +170,11 @@ export function LeadsDashboard() {
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4">
         {kpiItems.map((item) => (
           <div
             key={item.label}
-            className="rounded-xl border border-border/80 bg-card px-4 py-3 shadow-card"
+            className="min-w-0 rounded-xl border border-border/80 bg-card px-3 py-2.5 shadow-card sm:px-4 sm:py-3"
           >
             <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
               {item.label}
@@ -195,16 +195,16 @@ export function LeadsDashboard() {
             <span className="flex h-7 w-7 items-center justify-center rounded-md border border-border/80 bg-card shadow-sm">
               <Filter className="h-3.5 w-3.5 text-brand" aria-hidden />
             </span>
-            <div>
+            <div className="min-w-0">
               <CardTitle>Filters</CardTitle>
-              <CardDescription>
+              <CardDescription className="text-pretty">
                 Narrow leads by pipeline status or free-text search.
               </CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent className="pt-3.5">
-          <div className="grid gap-3 sm:grid-cols-[minmax(0,200px)_1fr] sm:items-end">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,11rem)_1fr] md:items-end xl:grid-cols-[minmax(0,200px)_1fr]">
             <div className="grid gap-2">
               <Label htmlFor="status-filter" className="text-xs uppercase tracking-wide text-muted-foreground">
                 Status
@@ -256,7 +256,7 @@ export function LeadsDashboard() {
             <span className="flex h-7 w-7 items-center justify-center rounded-md border border-border/80 bg-card shadow-sm">
               <Users className="h-3.5 w-3.5 text-brand" aria-hidden />
             </span>
-            <div>
+            <div className="min-w-0">
               <CardTitle>Leads</CardTitle>
               <CardDescription>
                 {filtered.length} of {leads.length} shown
@@ -285,16 +285,27 @@ export function LeadsDashboard() {
               />
             </div>
           ) : (
-            <Table className="[&_th]:h-8 [&_td]:py-2">
+            <div className="overflow-x-auto overscroll-x-contain">
+              <Table className="min-w-[40rem] [&_th]:h-8 [&_td]:py-2 lg:min-w-[52rem]">
               <TableHeader>
                 <TableRow className="hover:bg-transparent">
-                  <TableHead>Name</TableHead>
-                  <TableHead>Company</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Submitted</TableHead>
-                  <TableHead>Score</TableHead>
-                  <TableHead className="min-w-[160px]">Status</TableHead>
-                  <TableHead className="w-[88px] text-right"> </TableHead>
+                  <TableHead className="min-w-[7rem]">Name</TableHead>
+                  <TableHead className="hidden min-w-[6rem] md:table-cell">
+                    Company
+                  </TableHead>
+                  <TableHead className="hidden min-w-[9rem] lg:table-cell">
+                    Email
+                  </TableHead>
+                  <TableHead className="hidden whitespace-nowrap sm:table-cell">
+                    Submitted
+                  </TableHead>
+                  <TableHead className="min-w-[5.5rem]">Score</TableHead>
+                  <TableHead className="min-w-[8.5rem] md:min-w-[10rem] lg:min-w-[9.5rem]">
+                    Status
+                  </TableHead>
+                  <TableHead className="sticky right-0 z-20 w-[5.5rem] bg-surface/95 text-right backdrop-blur-sm sm:w-[5.75rem]">
+                    {" "}
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -305,16 +316,21 @@ export function LeadsDashboard() {
                       key={lead.id}
                       className="group transition-colors hover:bg-accent/50"
                     >
-                      <TableCell className="font-medium transition-colors group-hover:text-foreground">
-                        {lead.name}
+                      <TableCell className="min-w-[7rem] font-medium transition-colors group-hover:text-foreground">
+                        <div className="min-w-0">
+                          <p className="truncate">{lead.name}</p>
+                          <p className="truncate text-xs text-muted-foreground md:hidden">
+                            {lead.company}
+                          </p>
+                        </div>
                       </TableCell>
-                      <TableCell className="text-muted-foreground">
+                      <TableCell className="hidden max-w-[12rem] truncate text-muted-foreground md:table-cell">
                         {lead.company}
                       </TableCell>
-                      <TableCell className="max-w-[200px] truncate text-muted-foreground">
+                      <TableCell className="hidden max-w-[12rem] truncate text-muted-foreground lg:table-cell">
                         {lead.email}
                       </TableCell>
-                      <TableCell className="whitespace-nowrap text-xs text-muted-foreground">
+                      <TableCell className="hidden whitespace-nowrap text-xs text-muted-foreground sm:table-cell">
                         {new Date(lead.createdAt).toLocaleString(undefined, {
                           dateStyle: "medium",
                           timeStyle: "short",
@@ -357,7 +373,7 @@ export function LeadsDashboard() {
                           </Select>
                         </div>
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="sticky right-0 z-10 bg-card text-right shadow-[-6px_0_12px_-8px_hsl(var(--foreground)/0.08)] transition-colors group-hover:bg-accent/50">
                         <Button
                           asChild
                           variant="ghost"
@@ -378,6 +394,7 @@ export function LeadsDashboard() {
                 })}
               </TableBody>
             </Table>
+            </div>
           )}
         </CardContent>
       </Card>
