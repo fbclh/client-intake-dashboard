@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 
+import { PipelineAnalyticsCharts } from "@/components/dashboard/pipeline-analytics-charts";
 import { ScoreBadge } from "@/components/dashboard/score-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -249,6 +250,8 @@ export function LeadsDashboard() {
           </div>
         </CardContent>
       </Card>
+
+      <PipelineAnalyticsCharts leads={leads} />
 
       <Card className="overflow-hidden">
         <CardHeader className="flex flex-row flex-wrap items-end justify-between gap-2 border-b border-border/60 bg-surface/40 py-3.5">
