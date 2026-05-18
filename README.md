@@ -1,21 +1,16 @@
 # Client Intake Dashboard
 
-A modern internal lead intake and qualification dashboard built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui.
+A lead intake and qualification dashboard for internal ops teams. Collect inbound requests, score fit, and review pipeline status in one place.
 
-This project is intentionally positioned as an internal operations/admin workflow prototype rather than a public SaaS marketing product.
+## Live demo
 
-The focus is on:
+**[View live demo →](https://client-intake-dashboard.vercel.app)**
 
-- structured intake workflows
-- lead qualification
-- operational visibility
-- dashboard interactions
-- maintainable frontend architecture
-- modern React application patterns
+Opens with 12 pre-loaded demo leads — no setup required.
 
----
+![App walkthrough](public/demo.gif)
 
-## Preview
+## Screenshots
 
 ### Homepage
 ![Homepage workflow entry](public/screenshots/Home.png)
@@ -26,210 +21,32 @@ The focus is on:
 ### Dashboard
 ![Lead dashboard](public/screenshots/Dashboard.png)
 
----
-
-## Project Direction
-
-This application is designed as an internal tool demo.
-
-Meaning:
-
-- the entire app acts as an internal/admin workflow prototype
-- the intake page is simulated internally for demonstration purposes
-- the homepage functions as a workflow entry point
-- the dashboard acts as the primary operational interface
-
-Instead of behaving like a marketing-heavy SaaS landing page, the application is intentionally closer to a lightweight internal business tool.
-
-The goal of the project was to explore:
-
-- operational UX patterns
-- dashboard workflows
-- lead qualification systems
-- frontend application structure
-- AI-assisted iterative development workflows
-- product thinking and interface refinement
-
----
-
 ## Features
 
-### Intake Workflow
+- Multi-step intake form with client-side validation
+- Filterable lead table with KPI summary cards
+- Score leads from budget, urgency, and timeline
+- Pipeline charts for submissions, status, and scores
+- Lead detail page with notes and activity history
 
-- multi-step intake form
-- structured lead collection
-- form validation using Zod + React Hook Form
-- qualification-oriented fields
-- local persistence using localStorage
+## Development approach
 
-### Lead Dashboard
+This project was built using an iterative AI-assisted workflow — scoped prompts, phased implementation, and incremental architecture review — as a deliberate methodology for rapid internal tooling. Each phase targeted one layer of the product: intake flow, dashboard, scoring, and analytics. The result is a maintainable codebase delivered quickly, without sacrificing structure for speed. This is the same approach I use with clients who need production-ready tools on tight timelines.
 
-- lead overview table
-- lead statuses
-- filtering and sorting
-- score visualization
-- realistic demo data
-- KPI summary cards
+## Tech stack
 
-### Lead Qualification
+Next.js · TypeScript · Tailwind CSS · shadcn/ui · Zod · React Hook Form · Recharts
 
-- basic lead scoring system
-- qualification workflow concepts
-- urgency/budget/timeline scoring
-- operational review flow
+## Running locally
 
-### UI/UX
-
-- responsive dashboard layout
-- modern internal-tool styling
-- reusable component architecture
-- iterative UX refinement
-- simplified workflow hierarchy
-
----
-
-## Tech Stack
-
-### Frontend
-
-- Next.js App Router
-- React
-- TypeScript
-- Tailwind CSS
-- shadcn/ui
-
-### Forms & Validation
-
-- React Hook Form
-- Zod
-
-### Utilities
-
-- clsx
-- class-variance-authority
-- tailwind-merge
-
----
-
-## What This Project Demonstrates
-
-This repository was built to demonstrate:
-
-- modern React stack usage
-- Next.js App Router architecture
-- TypeScript usage in a real UI workflow
-- Tailwind + shadcn component composition
-- form handling and validation
-- state handling patterns
-- dashboard UI implementation
-- filtering and data presentation
-- workflow-oriented product thinking
-- frontend UX iteration
-- maintainable project structure
-- AI-assisted development workflows
-
-The project intentionally focuses more on:
-
-- product structure
-- usability
-- workflow clarity
-- operational UI
-- maintainable frontend systems
-
-rather than visual overdesign or unnecessary complexity.
-
----
-
-## Architecture Philosophy
-
-The project intentionally avoids:
-
-- overengineering
-- unnecessary abstractions
-- excessive state management
-- premature backend complexity
-- animation-heavy UI
-- fake enterprise patterns
-
-The goal was to keep the implementation:
-
-- readable
-- modular
-- maintainable
-- iterative
-- realistic for production evolution
-
----
-
-## Development Workflow
-
-This project was developed iteratively using AI-assisted workflows.
-
-Instead of generating the entire application in one pass, the project evolved through:
-
-- phased implementation
-- scoped prompts
-- incremental UX refinement
-- architecture review
-- small logical commits
-- iterative product decisions
-
-This approach helped maintain:
-
-- cleaner code organization
-- more coherent UX
-- better project direction
-- simpler architecture
-
----
-
-## Future Improvements
-
-Potential future directions include:
-
-- Persistent PostgreSQL storage
-- Analytics overview dashboard
-- AI-assisted lead qualification summaries
-- CSV export and reporting
-- Advanced filtering and pipeline management
-
----
-
-## Running Locally
-
-This repository uses [pnpm](https://pnpm.io/) (`pnpm-lock.yaml`). Install dependencies with:
+Requires [pnpm](https://pnpm.io/).
 
 ```bash
 pnpm install
+pnpm dev
 ```
 
-Run the development server:
-
-```bash
-pnpm run dev
-```
-
-Then open:
-
-http://localhost:3000
-
----
-
-## Disclaimer
-
-This project is a frontend/internal workflow prototype built for portfolio and architectural exploration purposes.
-
-It is not intended to represent a complete production SaaS platform.
-
-The focus is primarily on:
-
-- frontend architecture
-- operational workflow design
-- dashboard UX
-- maintainable React patterns
-- modern tooling and development workflows
-
----
+Open [http://localhost:3000](http://localhost:3000)
 
 ## Author
 
