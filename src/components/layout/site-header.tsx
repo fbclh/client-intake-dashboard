@@ -2,24 +2,46 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sparkles } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-const nav = [
-  { href: "/", label: "Home", exact: true },
+const leftNav = [{ href: "/", label: "Home", exact: true }] as const;
+
+const rightNav = [
   { href: "/intake", label: "Intake", exact: false },
   { href: "/dashboard", label: "Dashboard", exact: false },
 ] as const;
 
-export function SiteHeader({ className }: { className?: string }) {
+function NavLink({
+  href,
+  label,
+  exact,
+}: {
+  href: string;
+  label: string;
+  exact: boolean;
+}) {
   const pathname = usePathname();
+  const active = exact
+    ? pathname === href
+    : pathname === href || pathname.startsWith(`${href}/`);
 
-  function isActive(href: string, exact: boolean) {
-    if (exact) return pathname === href;
-    return pathname === href || pathname.startsWith(`${href}/`);
-  }
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+        active
+          ? "bg-card text-foreground shadow-sm"
+          : "text-muted-foreground hover:bg-card/60 hover:text-foreground",
+      )}
+    >
+      {label}
+    </Link>
+  );
+}
 
+export function SiteHeader({ className }: { className?: string }) {
   return (
     <header
       className={cn(
@@ -27,38 +49,23 @@ export function SiteHeader({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="mx-auto flex h-12 min-w-0 max-w-6xl items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="group flex min-w-0 shrink-0 items-center gap-2 font-semibold tracking-tight text-foreground sm:gap-2.5"
+      <div className="mx-auto flex h-12 min-w-0 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <nav
+          className="flex items-center gap-0.5 rounded-lg border border-border/60 bg-surface/80 p-0.5 sm:p-1"
+          aria-label="Primary left"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/80 bg-brand-muted shadow-sm transition-shadow group-hover:shadow-card">
-            <Sparkles className="h-4 w-4 text-brand" aria-hidden />
-          </span>
-          <span className="hidden sm:inline">Client Intake</span>
-        </Link>
+          {leftNav.map((item) => (
+            <NavLink key={item.href} {...item} />
+          ))}
+        </nav>
 
         <nav
-          className="flex max-w-[min(100%,14rem)] shrink-0 items-center gap-0.5 overflow-x-auto rounded-lg border border-border/60 bg-surface/80 p-0.5 [-ms-overflow-style:none] [scrollbar-width:none] sm:max-w-none sm:gap-1 sm:p-1 [&::-webkit-scrollbar]:hidden"
-          aria-label="Main"
+          className="flex items-center gap-0.5 rounded-lg border border-border/60 bg-surface/80 p-0.5 sm:gap-1 sm:p-1"
+          aria-label="Primary right"
         >
-          {nav.map((item) => {
-            const active = isActive(item.href, item.exact);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors sm:px-3 sm:text-sm",
-                  active
-                    ? "bg-card text-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-card/60 hover:text-foreground",
-                )}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+          {rightNav.map((item) => (
+            <NavLink key={item.href} {...item} />
+          ))}
         </nav>
       </div>
     </header>
