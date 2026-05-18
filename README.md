@@ -15,6 +15,19 @@ The focus is on:
 
 ---
 
+## Preview
+
+### Homepage
+![Homepage workflow entry](public/screenshots/homepage.png)
+
+### Intake
+![Multi-step intake form](public/screenshots/intake.png)
+
+### Dashboard
+![Lead dashboard](public/screenshots/dashboard.png)
+
+---
+
 ## Project Direction
 
 This application is designed as an internal tool demo.
@@ -72,24 +85,6 @@ The goal of the project was to explore:
 - reusable component architecture
 - iterative UX refinement
 - simplified workflow hierarchy
-
----
-
-## Screenshots
-
-Add UI captures to `public/screenshots/` to replace the placeholders below.
-
-### Homepage
-
-![Homepage workflow entry](public/screenshots/homepage.png)
-
-### Intake
-
-![Multi-step intake form](public/screenshots/intake.png)
-
-### Dashboard
-
-![Lead dashboard](public/screenshots/dashboard.png)
 
 ---
 
@@ -192,16 +187,11 @@ This approach helped maintain:
 
 Potential future directions include:
 
-- persistent database integration
-- authentication/role separation
-- analytics dashboards
-- activity timelines
-- notes/comments system
-- CSV export
-- advanced filtering
-- pipeline management
-- Supabase/PostgreSQL integration
-- real backend/API layer
+- Persistent PostgreSQL storage
+- Analytics overview dashboard
+- AI-assisted lead qualification summaries
+- CSV export and reporting
+- Advanced filtering and pipeline management
 
 ---
 
@@ -241,7 +231,12 @@ The focus is primarily on:
 
 ---
 
-## Author & License
+## Author
 
-- **Author:** Fabio C.
-- **License:** [MIT](LICENSE)
+Fabio Coelho
+
+---
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
