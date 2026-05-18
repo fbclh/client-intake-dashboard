@@ -285,7 +285,7 @@ export function LeadsDashboard() {
               />
             </div>
           ) : (
-            <Table>
+            <Table className="[&_th]:h-8 [&_td]:py-2">
               <TableHeader>
                 <TableRow className="hover:bg-transparent">
                   <TableHead>Name</TableHead>
@@ -321,17 +321,20 @@ export function LeadsDashboard() {
                         })}
                       </TableCell>
                       <TableCell>
-                        <ScoreBadge score={score} />
+                        <ScoreBadge
+                          score={score}
+                          className="px-2 py-0 text-[11px] font-medium leading-tight"
+                        />
                       </TableCell>
                       <TableCell className="relative z-10">
                         <div
-                          className="flex flex-col gap-2 sm:flex-row sm:items-center"
+                          className="flex flex-col gap-1.5 sm:flex-row sm:items-center"
                           onClick={(e) => e.stopPropagation()}
                           onKeyDown={(e) => e.stopPropagation()}
                         >
                           <Badge
                             variant={statusBadgeVariant(lead.status)}
-                            className="w-fit"
+                            className="w-fit px-2 py-0 text-[11px] font-medium leading-tight"
                           >
                             {leadStatusLabels[lead.status]}
                           </Badge>
@@ -341,7 +344,7 @@ export function LeadsDashboard() {
                               setStatus(lead.id, v as LeadStatus)
                             }
                           >
-                            <SelectTrigger className="h-8 w-full min-w-[8.5rem] cursor-pointer text-xs">
+                            <SelectTrigger className="h-7 w-full min-w-[8.5rem] cursor-pointer text-xs">
                               <SelectValue placeholder="Set status" />
                             </SelectTrigger>
                             <SelectContent>
@@ -359,7 +362,7 @@ export function LeadsDashboard() {
                           asChild
                           variant="ghost"
                           size="sm"
-                          className="h-8 gap-1 border border-transparent px-2.5 text-xs font-medium text-muted-foreground hover:border-border/80 hover:bg-card hover:text-foreground hover:shadow-sm group-hover:text-foreground"
+                          className="h-7 gap-1 border border-transparent px-2.5 text-xs font-medium text-muted-foreground hover:border-border/80 hover:bg-card hover:text-foreground hover:shadow-sm group-hover:text-foreground"
                         >
                           <Link href={`/dashboard/leads/${lead.id}`}>
                             View

@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { scoreTier } from "@/lib/lead-score";
+import { cn } from "@/lib/utils";
 
 const tierCopy: Record<ReturnType<typeof scoreTier>, string> = {
   strong: "Strong fit",
@@ -7,7 +8,13 @@ const tierCopy: Record<ReturnType<typeof scoreTier>, string> = {
   early: "Early",
 };
 
-export function ScoreBadge({ score }: { score: number }) {
+export function ScoreBadge({
+  score,
+  className,
+}: {
+  score: number;
+  className?: string;
+}) {
   const tier = scoreTier(score);
   const variant =
     tier === "strong"
@@ -17,9 +24,9 @@ export function ScoreBadge({ score }: { score: number }) {
         : "outline";
 
   return (
-    <Badge variant={variant} className="tabular-nums">
+    <Badge variant={variant} className={cn("tabular-nums", className)}>
       {score}
-      <span className="mx-1 opacity-60">·</span>
+      <span className="mx-0.5 opacity-60">·</span>
       {tierCopy[tier]}
     </Badge>
   );
