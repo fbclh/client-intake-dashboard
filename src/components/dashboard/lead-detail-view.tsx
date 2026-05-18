@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   ArrowLeft,
   Building2,
@@ -97,15 +97,39 @@ function MetaItem({
   value: string;
 }) {
   return (
-    <div className="flex min-w-0 gap-2.5">
-      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border/80 bg-card shadow-sm">
+    <div className="flex min-w-0 items-start gap-2.5">
+      <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border/80 bg-card shadow-sm">
         <Icon className="h-3.5 w-3.5 text-brand" aria-hidden />
       </span>
-      <div className="min-w-0">
+      <div className="min-w-0 flex-1">
         <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
           {label}
         </p>
-        <p className="truncate text-sm text-foreground">{value}</p>
+        <p className="mt-0.5 truncate text-sm text-foreground">{value}</p>
+      </div>
+    </div>
+  );
+}
+
+function MetaField({
+  icon: Icon,
+  label,
+  children,
+}: {
+  icon: typeof Mail;
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex min-w-0 items-start gap-2.5">
+      <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border/80 bg-card shadow-sm">
+        <Icon className="h-3.5 w-3.5 text-brand" aria-hidden />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+          {label}
+        </p>
+        <div className="mt-0.5">{children}</div>
       </div>
     </div>
   );
@@ -296,32 +320,24 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
           <CardTitle className="text-base">Overview</CardTitle>
           <CardDescription>Key fields for triage and follow-up.</CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4 py-4 sm:grid-cols-2">
+        <CardContent className="grid items-start gap-x-5 gap-y-3 px-4 pb-4 pt-3 sm:grid-cols-2 sm:px-5">
           <MetaItem icon={Building2} label="Company" value={activeLead.company} />
           <MetaItem icon={Mail} label="Email" value={activeLead.email} />
           <MetaItem icon={Calendar} label="Submitted" value={submittedLabel} />
-          <div className="flex min-w-0 gap-2.5">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border/80 bg-card shadow-sm">
-              <Workflow className="h-3.5 w-3.5 text-brand" aria-hidden />
-            </span>
-            <div className="min-w-0 flex-1 space-y-1.5">
-              <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
-                Status
-              </p>
-              <Select value={activeLead.status} onValueChange={handleStatusChange}>
-                <SelectTrigger className="h-8 max-w-[11rem] text-xs">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {allStatuses.map((s) => (
-                    <SelectItem key={s} value={s}>
-                      {leadStatusLabels[s]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+          <MetaField icon={Workflow} label="Status">
+            <Select value={activeLead.status} onValueChange={handleStatusChange}>
+              <SelectTrigger className="h-8 w-full max-w-[12rem] text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {allStatuses.map((s) => (
+                  <SelectItem key={s} value={s}>
+                    {leadStatusLabels[s]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </MetaField>
         </CardContent>
       </Card>
 
@@ -356,16 +372,16 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
                   How this lead was scored from intake signals (max 100).
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3 py-4">
-                <div className="rounded-lg border border-border/80 bg-surface/40 px-3.5 py-3">
-                  <p className="text-sm font-medium text-foreground">
+              <CardContent className="space-y-3 px-4 pb-4 pt-3 sm:px-5">
+                <div className="rounded-lg border border-border/80 bg-surface/40 px-3 py-2.5">
+                  <p className="text-sm font-medium leading-tight text-foreground">
                     {tier === "strong"
                       ? "Strong fit"
                       : tier === "moderate"
                         ? "Warm lead"
                         : "Early-stage lead"}
                   </p>
-                  <p className="mt-1 text-sm leading-snug text-muted-foreground">
+                  <p className="mt-0.5 text-sm leading-snug text-muted-foreground">
                     {tierGuidance[tier]}
                   </p>
                 </div>
@@ -450,7 +466,7 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3 pt-3.5">
+            <CardContent className="space-y-3 px-4 pb-4 pt-3 sm:px-5">
               <div className="grid gap-2">
                 <Label htmlFor="lead-notes" className="sr-only">
                   Internal notes
@@ -489,14 +505,21 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="pt-3.5">
-              <ol className="relative space-y-0 border-l border-border/80 pl-4">
-                {sortedActivities.map((item) => {
+            <CardContent className="px-4 pb-4 pt-3 sm:px-5">
+              <ol className="relative space-y-3">
+                {sortedActivities.map((item, index) => {
                   const Icon = activityIcon(item.type);
+                  const isLast = index === sortedActivities.length - 1;
                   return (
-                    <li key={item.id} className="relative pb-4 last:pb-0">
+                    <li key={item.id} className="relative pl-6">
+                      {!isLast ? (
+                        <span
+                          className="absolute left-[0.6rem] top-5 bottom-0 w-px -translate-x-1/2 bg-border/80"
+                          aria-hidden
+                        />
+                      ) : null}
                       <span
-                        className="absolute -left-[1.3rem] top-0.5 flex h-5 w-5 items-center justify-center rounded-full border border-border/80 bg-card shadow-sm"
+                        className="absolute left-0 top-0.5 flex h-5 w-5 items-center justify-center rounded-full border border-border/80 bg-card shadow-sm"
                         aria-hidden
                       >
                         <Icon className="h-2.5 w-2.5 text-brand" />

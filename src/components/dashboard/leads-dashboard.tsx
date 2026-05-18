@@ -203,9 +203,9 @@ export function LeadsDashboard() {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="pt-3.5">
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,11rem)_1fr] md:items-end xl:grid-cols-[minmax(0,200px)_1fr]">
-            <div className="grid gap-2">
+        <CardContent className="px-4 pb-4 pt-3 sm:px-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-x-5">
+            <div className="space-y-1.5">
               <Label htmlFor="status-filter" className="text-xs uppercase tracking-wide text-muted-foreground">
                 Status
               </Label>
@@ -215,7 +215,7 @@ export function LeadsDashboard() {
                   setStatusFilter(v as LeadStatus | "all")
                 }
               >
-                <SelectTrigger id="status-filter">
+                <SelectTrigger id="status-filter" className="w-full">
                   <SelectValue placeholder="All statuses" />
                 </SelectTrigger>
                 <SelectContent>
@@ -228,7 +228,7 @@ export function LeadsDashboard() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid gap-2">
+            <div className="space-y-1.5">
               <Label htmlFor="lead-search" className="text-xs uppercase tracking-wide text-muted-foreground">
                 Search
               </Label>
@@ -239,7 +239,7 @@ export function LeadsDashboard() {
                 />
                 <Input
                   id="lead-search"
-                  className="pl-9"
+                  className="w-full pl-9"
                   placeholder="Name, email, company, or notes…"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}

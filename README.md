@@ -238,3 +238,10 @@ The focus is primarily on:
 - dashboard UX
 - maintainable React patterns
 - modern tooling and development workflows
+
+---
+
+## Author & License
+
+- **Author:** Fabio C.
+- **License:** [MIT](LICENSE)
