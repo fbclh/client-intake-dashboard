@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -61,13 +60,6 @@ export function SiteHeader({ className }: { className?: string }) {
             );
           })}
         </nav>
-
-        <Button asChild size="sm" className="hidden sm:inline-flex">
-          <Link href="/dashboard">
-            <LayoutDashboard className="h-4 w-4" aria-hidden />
-            Dashboard
-          </Link>
-        </Button>
       </div>
     </header>
   );

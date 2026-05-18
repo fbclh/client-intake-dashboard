@@ -7,13 +7,6 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 export default function HomePage() {
   return (
@@ -37,16 +30,22 @@ export default function HomePage() {
               teams who need clarity without complexity.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2.5 pt-0.5">
+          <div className="flex flex-col gap-2 pt-0.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
             <Button asChild>
               <Link href="/intake">
                 Start intake
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </Button>
-            <Button asChild variant="outline">
-              <Link href="/dashboard">Open dashboard</Link>
-            </Button>
+            <p className="text-sm text-muted-foreground">
+              Already submitted?{" "}
+              <Link
+                href="/dashboard"
+                className="font-medium text-brand underline-offset-4 hover:underline"
+              >
+                Review leads in the dashboard
+              </Link>
+            </p>
           </div>
         </div>
       </section>
@@ -84,54 +83,6 @@ export default function HomePage() {
             </div>
           </div>
         ))}
-      </section>
-
-      <section className="space-y-3">
-        <div className="space-y-0.5">
-          <h2 className="text-base font-semibold tracking-tight">Get started</h2>
-          <p className="text-sm text-muted-foreground">
-            Choose how you want to work with leads today.
-          </p>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <Card className="group transition-shadow hover:shadow-card-hover">
-            <CardHeader>
-              <div className="mb-1.5 flex h-9 w-9 items-center justify-center rounded-lg border border-border/80 bg-brand-muted">
-                <ClipboardList className="h-4 w-4 text-brand" aria-hidden />
-              </div>
-              <CardTitle>Submit intake</CardTitle>
-              <CardDescription>
-                Guided form for prospects — contact, project scope, budget, and
-                timeline in a few steps.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button asChild className="w-full group-hover:shadow-sm">
-                <Link href="/intake">
-                  Start intake
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-          <Card className="group transition-shadow hover:shadow-card-hover">
-            <CardHeader>
-              <div className="mb-1.5 flex h-9 w-9 items-center justify-center rounded-lg border border-border/80 bg-surface">
-                <BarChart3 className="h-4 w-4 text-brand" aria-hidden />
-              </div>
-              <CardTitle>Review leads</CardTitle>
-              <CardDescription>
-                Internal dashboard with filters, status updates, scores, and
-                per-lead detail views.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button asChild variant="secondary" className="w-full">
-                <Link href="/dashboard">Open dashboard</Link>
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
       </section>
     </div>
   );
