@@ -190,6 +190,8 @@ export function LeadsDashboard() {
         ))}
       </div>
 
+      <PipelineAnalyticsCharts leads={leads} />
+
       <Card className="overflow-hidden">
         <CardHeader className="border-b border-border/60 bg-surface/40 py-3.5">
           <div className="flex items-center gap-2">
@@ -250,8 +252,6 @@ export function LeadsDashboard() {
           </div>
         </CardContent>
       </Card>
-
-      <PipelineAnalyticsCharts leads={leads} />
 
       <Card className="overflow-hidden">
         <CardHeader className="flex flex-row flex-wrap items-end justify-between gap-2 border-b border-border/60 bg-surface/40 py-3.5">
