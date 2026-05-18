@@ -75,6 +75,24 @@ The goal of the project was to explore:
 
 ---
 
+## Screenshots
+
+Add UI captures to `public/screenshots/` to replace the placeholders below.
+
+### Homepage
+
+![Homepage workflow entry](public/screenshots/homepage.png)
+
+### Intake
+
+![Multi-step intake form](public/screenshots/intake.png)
+
+### Dashboard
+
+![Lead dashboard](public/screenshots/dashboard.png)
+
+---
+
 ## Tech Stack
 
 ### Frontend
@@ -189,7 +207,7 @@ Potential future directions include:
 
 ## Running Locally
 
-Install dependencies:
+This repository uses [pnpm](https://pnpm.io/) (`pnpm-lock.yaml`). Install dependencies with:
 
 ```bash
 pnpm install
