@@ -146,11 +146,27 @@ export function LeadsDashboard() {
   }, [leads]);
 
   const kpiItems = [
-    { label: "Total leads", value: stats.total.toString() },
-    { label: "Qualified leads", value: stats.qualified.toString() },
-    { label: "Average score", value: stats.total > 0 ? `${stats.averageScore}` : "—" },
-    { label: "Hot leads", value: stats.hot.toString(), hint: "Score 70+" },
-  ] as const;
+    {
+      label: "Total leads",
+      value: stats.total.toString(),
+      hint: "Loaded demo pipeline",
+    },
+    {
+      label: "Qualified leads",
+      value: stats.qualified.toString(),
+      hint: "Ready for follow-up",
+    },
+    {
+      label: "Average score",
+      value: stats.total > 0 ? `${stats.averageScore}` : "—",
+      hint: "Across active leads",
+    },
+    {
+      label: "Hot leads",
+      value: stats.hot.toString(),
+      hint: "Score 70+",
+    },
+  ];
 
   return (
     <div className="space-y-4">
@@ -166,9 +182,9 @@ export function LeadsDashboard() {
             <p className="mt-1 text-2xl font-semibold tabular-nums tracking-tight text-foreground">
               {item.value}
             </p>
-            {"hint" in item && item.hint ? (
-              <p className="mt-0.5 text-[11px] text-muted-foreground">{item.hint}</p>
-            ) : null}
+            <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground/90">
+              {item.hint}
+            </p>
           </div>
         ))}
       </div>
