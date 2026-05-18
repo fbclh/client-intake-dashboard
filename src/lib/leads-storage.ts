@@ -1,4 +1,4 @@
-import { getDemoLeads } from "@/lib/demo-leads";
+import { getSeedLeads } from "@/lib/seed-data";
 import type { StoredLead } from "@/types/lead";
 
 const STORAGE_KEY = "client-intake-dashboard:leads";
@@ -27,9 +27,9 @@ export function ensureDemoLeads(): void {
       const parsed: unknown = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) return;
     }
-    writeLeads(getDemoLeads());
+    writeLeads(getSeedLeads());
   } catch {
-    writeLeads(getDemoLeads());
+    writeLeads(getSeedLeads());
   }
 }
 
