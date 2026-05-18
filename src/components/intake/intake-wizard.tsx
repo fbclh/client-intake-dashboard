@@ -106,8 +106,8 @@ export function IntakeWizard() {
     return (
       <Card className="mx-auto max-w-lg border-brand/20 shadow-card">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full border border-brand/20 bg-brand-muted">
-            <CheckCircle2 className="h-8 w-8 text-brand" aria-hidden />
+          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full border border-brand/20 bg-brand-muted">
+            <CheckCircle2 className="h-7 w-7 text-brand" aria-hidden />
           </div>
           <CardTitle>Thank you — we received your intake</CardTitle>
           <CardDescription>
@@ -129,8 +129,8 @@ export function IntakeWizard() {
 
   return (
     <Card className="mx-auto max-w-xl overflow-hidden shadow-card">
-      <CardHeader className="space-y-5 border-b border-border/60 bg-surface/40">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <CardHeader className="space-y-3.5 border-b border-border/60 bg-surface/40">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <CardTitle>
               {step < TOTAL_DATA_STEPS
@@ -194,15 +194,15 @@ export function IntakeWizard() {
           />
         </div>
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="pt-4">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6"
+            className="space-y-4"
             noValidate
           >
             {step === 0 && (
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <FormField
                   control={form.control}
                   name="name"
@@ -259,7 +259,7 @@ export function IntakeWizard() {
             )}
 
             {step === 1 && (
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <FormField
                   control={form.control}
                   name="serviceType"
@@ -296,7 +296,7 @@ export function IntakeWizard() {
                       <FormControl>
                         <Textarea
                           placeholder="Goals, constraints, and anything else we should know."
-                          rows={5}
+                          rows={4}
                           {...field}
                         />
                       </FormControl>
@@ -335,7 +335,7 @@ export function IntakeWizard() {
             )}
 
             {step === 2 && (
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <FormField
                   control={form.control}
                   name="urgency"
@@ -424,7 +424,7 @@ export function IntakeWizard() {
               <ReviewStep values={form.getValues()} onEdit={setStep} />
             )}
 
-            <div className="flex flex-wrap justify-between gap-3 border-t border-border/60 pt-6">
+            <div className="flex flex-wrap justify-between gap-2.5 border-t border-border/60 pt-4">
               {step > 0 && step <= TOTAL_DATA_STEPS && (
                 <Button type="button" variant="outline" onClick={goBack}>
                   Back
@@ -481,15 +481,15 @@ function ReviewStep({
   ];
 
   return (
-    <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">
+    <div className="space-y-3">
+      <p className="text-sm leading-snug text-muted-foreground">
         Review your answers. You can jump back to any section to make changes.
       </p>
       <dl className="divide-y divide-border/60 overflow-hidden rounded-lg border border-border/80 bg-surface/30">
         {rows.map((row) => (
           <div
             key={row.label}
-            className="flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-start sm:justify-between"
+            className="flex flex-col gap-1 px-3.5 py-2.5 sm:flex-row sm:items-start sm:justify-between"
           >
             <dt className="text-sm font-medium text-muted-foreground">
               {row.label}

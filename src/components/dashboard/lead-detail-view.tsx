@@ -28,7 +28,7 @@ import type { StoredLead } from "@/types/lead";
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="grid gap-1 py-3 sm:grid-cols-[160px_1fr] sm:items-start">
+    <div className="grid gap-0.5 py-2.5 sm:grid-cols-[140px_1fr] sm:items-start">
       <div className="text-sm font-medium text-muted-foreground">{label}</div>
       <div className="text-sm whitespace-pre-wrap">{value}</div>
     </div>
@@ -75,9 +75,9 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
   const score = lead.score ?? computeLeadScore(lead);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       <div>
-        <Button variant="ghost" size="sm" className="-ml-2 mb-3 gap-1.5 text-muted-foreground" asChild>
+        <Button variant="ghost" size="sm" className="-ml-2 mb-2 gap-1.5 text-muted-foreground" asChild>
           <Link href="/dashboard">
             <ArrowLeft className="h-4 w-4" aria-hidden />
             Dashboard
@@ -85,8 +85,10 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
         </Button>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-1">
-            <h1 className="text-2xl font-semibold tracking-tight">{lead.name}</h1>
-            <p className="text-muted-foreground">{lead.company}</p>
+            <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
+              {lead.name}
+            </h1>
+            <p className="text-sm text-muted-foreground">{lead.company}</p>
             <p className="text-sm text-muted-foreground">
               Submitted{" "}
               {new Date(lead.createdAt).toLocaleString(undefined, {
@@ -95,7 +97,7 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
               })}
             </p>
           </div>
-          <div className="flex flex-col items-start gap-2 sm:items-end">
+          <div className="flex flex-col items-start gap-1.5 sm:items-end">
             <ScoreBadge score={score} />
             <Badge variant="secondary">{leadStatusLabels[lead.status]}</Badge>
             <p className="text-xs text-muted-foreground">
@@ -110,8 +112,8 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
           <CardTitle>Submission</CardTitle>
           <CardDescription>What they told you on the intake form.</CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="divide-y">
+        <CardContent className="py-3 sm:py-4">
+          <div className="divide-y divide-border/60">
             <DetailRow label="Email" value={lead.email} />
             <DetailRow label="Phone" value={lead.phone} />
             <DetailRow label="Company" value={lead.company} />
@@ -140,58 +142,58 @@ export function LeadDetailView({ leadId }: { leadId: string }) {
               The total is capped at 100.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-3 py-3 sm:py-4">
             <div className="overflow-hidden rounded-lg border border-border/80">
               <table className="w-full text-sm">
                 <thead className="bg-surface text-left text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   <tr>
-                    <th className="px-4 py-2">Signal</th>
-                    <th className="px-4 py-2">Answer</th>
-                    <th className="px-4 py-2 text-right">Points</th>
+                    <th className="px-3 py-1.5">Signal</th>
+                    <th className="px-3 py-1.5">Answer</th>
+                    <th className="px-3 py-1.5 text-right">Points</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-t">
-                    <td className="px-4 py-3 font-medium">Budget</td>
-                    <td className="px-4 py-3 text-muted-foreground">
+                    <td className="px-3 py-2 font-medium">Budget</td>
+                    <td className="px-3 py-2 text-muted-foreground">
                       {labelBudget(lead.budget)}
                     </td>
-                    <td className="px-4 py-3 text-right tabular-nums">
+                    <td className="px-3 py-2 text-right tabular-nums">
                       {breakdown.budget}
                     </td>
                   </tr>
                   <tr className="border-t">
-                    <td className="px-4 py-3 font-medium">Urgency</td>
-                    <td className="px-4 py-3 text-muted-foreground">
+                    <td className="px-3 py-2 font-medium">Urgency</td>
+                    <td className="px-3 py-2 text-muted-foreground">
                       {labelUrgency(lead.urgency)}
                     </td>
-                    <td className="px-4 py-3 text-right tabular-nums">
+                    <td className="px-3 py-2 text-right tabular-nums">
                       {breakdown.urgency}
                     </td>
                   </tr>
                   <tr className="border-t">
-                    <td className="px-4 py-3 font-medium">Timeline</td>
-                    <td className="px-4 py-3 text-muted-foreground">
+                    <td className="px-3 py-2 font-medium">Timeline</td>
+                    <td className="px-3 py-2 text-muted-foreground">
                       {labelTimeline(lead.timeline)}
                     </td>
-                    <td className="px-4 py-3 text-right tabular-nums">
+                    <td className="px-3 py-2 text-right tabular-nums">
                       {breakdown.timeline}
                     </td>
                   </tr>
                   <tr className="border-t">
-                    <td className="px-4 py-3 font-medium">Company size</td>
-                    <td className="px-4 py-3 text-muted-foreground">
+                    <td className="px-3 py-2 font-medium">Company size</td>
+                    <td className="px-3 py-2 text-muted-foreground">
                       {labelCompanySize(lead.companySize)}
                     </td>
-                    <td className="px-4 py-3 text-right tabular-nums">
+                    <td className="px-3 py-2 text-right tabular-nums">
                       {breakdown.companySize}
                     </td>
                   </tr>
                   <tr className="border-t bg-muted/40 font-semibold">
-                    <td className="px-4 py-3" colSpan={2}>
+                    <td className="px-3 py-2" colSpan={2}>
                       Total
                     </td>
-                    <td className="px-4 py-3 text-right tabular-nums">
+                    <td className="px-3 py-2 text-right tabular-nums">
                       {breakdown.total}
                     </td>
                   </tr>

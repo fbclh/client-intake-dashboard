@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function IntakePage() {
   return (
-    <div className="mx-auto w-full max-w-2xl space-y-8">
+    <div className="mx-auto w-full max-w-2xl space-y-5">
       <PageHeader
         title="Client intake"
         description="Share your contact details, project scope, and timeline. Most people finish in under two minutes."

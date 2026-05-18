@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-8">
+    <div className="mx-auto w-full max-w-6xl space-y-5">
       <PageHeader
         title="Lead dashboard"
         description="Status, filters, and next steps for every intake submission."

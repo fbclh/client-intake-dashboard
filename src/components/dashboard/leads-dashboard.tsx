@@ -71,13 +71,15 @@ function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-surface/40 px-6 py-14 text-center">
-      <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-border/80 bg-card shadow-sm">
-        <Icon className="h-6 w-6 text-brand" aria-hidden />
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-surface/40 px-5 py-10 text-center">
+      <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-border/80 bg-card shadow-sm">
+        <Icon className="h-5 w-5 text-brand" aria-hidden />
       </span>
       <p className="text-sm font-medium text-foreground">{title}</p>
-      <p className="mt-1 max-w-sm text-sm text-muted-foreground">{description}</p>
-      {action ? <div className="mt-5">{action}</div> : null}
+      <p className="mt-1 max-w-sm text-xs leading-snug text-muted-foreground">
+        {description}
+      </p>
+      {action ? <div className="mt-4">{action}</div> : null}
     </div>
   );
 }
@@ -125,23 +127,23 @@ export function LeadsDashboard() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <Card className="overflow-hidden">
-        <CardHeader className="border-b border-border/60 bg-surface/40 pb-4">
+        <CardHeader className="border-b border-border/60 bg-surface/40 py-3.5">
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/80 bg-card shadow-sm">
-              <Filter className="h-4 w-4 text-brand" aria-hidden />
+            <span className="flex h-7 w-7 items-center justify-center rounded-md border border-border/80 bg-card shadow-sm">
+              <Filter className="h-3.5 w-3.5 text-brand" aria-hidden />
             </span>
             <div>
-              <CardTitle className="text-base">Filters</CardTitle>
+              <CardTitle>Filters</CardTitle>
               <CardDescription>
                 Narrow leads by pipeline status or free-text search.
               </CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="pt-5">
-          <div className="grid gap-4 sm:grid-cols-[minmax(0,220px)_1fr] sm:items-end">
+        <CardContent className="pt-3.5">
+          <div className="grid gap-3 sm:grid-cols-[minmax(0,200px)_1fr] sm:items-end">
             <div className="grid gap-2">
               <Label htmlFor="status-filter" className="text-xs uppercase tracking-wide text-muted-foreground">
                 Status
@@ -188,13 +190,13 @@ export function LeadsDashboard() {
       </Card>
 
       <Card className="overflow-hidden">
-        <CardHeader className="flex flex-row flex-wrap items-end justify-between gap-3 border-b border-border/60 bg-surface/40 pb-4">
+        <CardHeader className="flex flex-row flex-wrap items-end justify-between gap-2 border-b border-border/60 bg-surface/40 py-3.5">
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/80 bg-card shadow-sm">
-              <Users className="h-4 w-4 text-brand" aria-hidden />
+            <span className="flex h-7 w-7 items-center justify-center rounded-md border border-border/80 bg-card shadow-sm">
+              <Users className="h-3.5 w-3.5 text-brand" aria-hidden />
             </span>
             <div>
-              <CardTitle className="text-base">Leads</CardTitle>
+              <CardTitle>Leads</CardTitle>
               <CardDescription>
                 {filtered.length} of {leads.length} shown
               </CardDescription>
@@ -203,7 +205,7 @@ export function LeadsDashboard() {
         </CardHeader>
         <CardContent className="p-0 sm:p-0">
           {leads.length === 0 ? (
-            <div className="p-6">
+            <div className="p-4">
               <EmptyState
                 icon={Inbox}
                 title="No leads yet"
@@ -216,7 +218,7 @@ export function LeadsDashboard() {
               />
             </div>
           ) : filtered.length === 0 ? (
-            <div className="p-6">
+            <div className="p-4">
               <EmptyState
                 icon={SearchX}
                 title="No matching leads"
