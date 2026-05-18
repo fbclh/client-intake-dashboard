@@ -23,11 +23,11 @@ export function SiteHeader({ className }: { className?: string }) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b border-border/80 bg-card/80 backdrop-blur-md supports-[backdrop-filter]:bg-card/70",
+        "sticky top-0 z-50 w-full border-b border-border/70 bg-card/75 shadow-sm shadow-foreground/[0.03] backdrop-blur-md supports-[backdrop-filter]:bg-card/65",
         className,
       )}
     >
-      <div className="mx-auto flex h-12 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+      <div className="mx-auto flex h-12 min-w-0 max-w-6xl items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6">
         <Link
           href="/"
           className="group flex items-center gap-2.5 font-semibold tracking-tight text-foreground"
@@ -39,7 +39,7 @@ export function SiteHeader({ className }: { className?: string }) {
         </Link>
 
         <nav
-          className="flex items-center gap-1 rounded-lg border border-border/60 bg-surface/80 p-1"
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-border/60 bg-surface/80 p-1"
           aria-label="Main"
         >
           {nav.map((item) => {
