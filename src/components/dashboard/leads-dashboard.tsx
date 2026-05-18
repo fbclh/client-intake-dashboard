@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
+  ChevronRight,
   Filter,
   Inbox,
   Search,
@@ -284,8 +285,13 @@ export function LeadsDashboard() {
                 {filtered.map((lead) => {
                   const score = lead.score ?? computeLeadScore(lead);
                   return (
-                    <TableRow key={lead.id}>
-                      <TableCell className="font-medium">{lead.name}</TableCell>
+                    <TableRow
+                      key={lead.id}
+                      className="group transition-colors hover:bg-accent/50"
+                    >
+                      <TableCell className="font-medium transition-colors group-hover:text-foreground">
+                        {lead.name}
+                      </TableCell>
                       <TableCell className="text-muted-foreground">
                         {lead.company}
                       </TableCell>
@@ -301,8 +307,12 @@ export function LeadsDashboard() {
                       <TableCell>
                         <ScoreBadge score={score} />
                       </TableCell>
-                      <TableCell>
-                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                      <TableCell className="relative z-10">
+                        <div
+                          className="flex flex-col gap-2 sm:flex-row sm:items-center"
+                          onClick={(e) => e.stopPropagation()}
+                          onKeyDown={(e) => e.stopPropagation()}
+                        >
                           <Badge
                             variant={statusBadgeVariant(lead.status)}
                             className="w-fit"
@@ -315,7 +325,7 @@ export function LeadsDashboard() {
                               setStatus(lead.id, v as LeadStatus)
                             }
                           >
-                            <SelectTrigger className="h-8 w-full min-w-[8.5rem] text-xs">
+                            <SelectTrigger className="h-8 w-full min-w-[8.5rem] cursor-pointer text-xs">
                               <SelectValue placeholder="Set status" />
                             </SelectTrigger>
                             <SelectContent>
@@ -329,8 +339,19 @@ export function LeadsDashboard() {
                         </div>
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button asChild variant="ghost" size="sm">
-                          <Link href={`/dashboard/leads/${lead.id}`}>View</Link>
+                        <Button
+                          asChild
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 gap-1 border border-transparent px-2.5 text-xs font-medium text-muted-foreground hover:border-border/80 hover:bg-card hover:text-foreground hover:shadow-sm group-hover:text-foreground"
+                        >
+                          <Link href={`/dashboard/leads/${lead.id}`}>
+                            View
+                            <ChevronRight
+                              className="h-3.5 w-3.5 opacity-60 transition-transform group-hover:translate-x-0.5 group-hover:opacity-100"
+                              aria-hidden
+                            />
+                          </Link>
                         </Button>
                       </TableCell>
                     </TableRow>
