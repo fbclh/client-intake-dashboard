@@ -104,7 +104,7 @@ export function IntakeWizard() {
 
   if (submitted) {
     return (
-      <Card className="mx-auto max-w-lg border-brand/20 shadow-card">
+      <Card className="w-full border-brand/20 shadow-card">
         <CardHeader className="text-center">
           <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full border border-brand/20 bg-brand-muted">
             <CheckCircle2 className="h-7 w-7 text-brand" aria-hidden />
@@ -128,11 +128,16 @@ export function IntakeWizard() {
   }
 
   return (
-    <Card className="mx-auto max-w-xl overflow-hidden shadow-card">
-      <CardHeader className="space-y-3.5 border-b border-border/60 bg-surface/40">
+    <Card className="w-full overflow-hidden border-border/80 shadow-card">
+      <CardHeader className="space-y-3 border-b border-border/60 bg-surface/40 pb-4">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <CardTitle>
+          <div className="space-y-1">
+            <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+              {step < TOTAL_DATA_STEPS
+                ? `Step ${step + 1} of ${TOTAL_DATA_STEPS}`
+                : "Final step"}
+            </p>
+            <CardTitle className="text-base">
               {step < TOTAL_DATA_STEPS
                 ? STEP_META[step].title
                 : "Review & submit"}
@@ -143,58 +148,78 @@ export function IntakeWizard() {
                 : "Confirm your answers before sending."}
             </CardDescription>
           </div>
-          <span className="w-fit shrink-0 rounded-full border border-border/80 bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+          <span className="w-fit shrink-0 rounded-full border border-border/80 bg-card px-2.5 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
             {progressLabel}
           </span>
         </div>
 
-        <ol className="flex gap-2" aria-label="Form steps">
-          {STEP_META.map((meta, i) => {
-            const done = step > i;
-            const current = step === i;
-            return (
-              <li key={meta.title} className="flex flex-1 flex-col gap-1">
-                <div
+        <nav aria-label="Form progress">
+          <ol className="grid grid-cols-3 gap-2">
+            {STEP_META.map((meta, i) => {
+              const done = step > i;
+              const current = step === i;
+              const upcoming = step < i;
+              return (
+                <li
+                  key={meta.title}
                   className={cn(
-                    "h-1.5 rounded-full transition-colors",
-                    done || current ? "bg-brand" : "bg-border",
-                    current && "ring-2 ring-brand/25 ring-offset-1",
-                  )}
-                  aria-hidden
-                />
-                <span
-                  className={cn(
-                    "text-[11px] font-medium leading-tight sm:text-xs",
-                    current
-                      ? "text-foreground"
-                      : done
-                        ? "text-muted-foreground"
-                        : "text-muted-foreground/70",
+                    "rounded-lg border px-2 py-2 sm:px-2.5",
+                    current && "border-brand/30 bg-card shadow-sm",
+                    done && !current && "border-border/60 bg-brand-muted/40",
+                    upcoming && "border-transparent bg-transparent",
                   )}
                 >
-                  {meta.title}
-                </span>
-              </li>
-            );
-          })}
-        </ol>
-
-        <div
-          className="h-2 w-full overflow-hidden rounded-full bg-secondary"
-          role="progressbar"
-          aria-valuemin={0}
-          aria-valuemax={TOTAL_DATA_STEPS + 1}
-          aria-valuenow={Math.min(step + 1, TOTAL_DATA_STEPS + 1)}
-        >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={cn(
+                        "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold tabular-nums",
+                        current && "bg-brand text-primary-foreground",
+                        done && !current && "bg-brand-muted text-brand",
+                        upcoming &&
+                          "border border-border bg-card text-muted-foreground",
+                      )}
+                      aria-current={current ? "step" : undefined}
+                    >
+                      {done && !current ? "✓" : i + 1}
+                    </span>
+                    <span className="min-w-0">
+                      <span
+                        className={cn(
+                          "block text-xs font-medium leading-tight",
+                          current
+                            ? "text-foreground"
+                            : "text-muted-foreground",
+                        )}
+                      >
+                        {meta.title}
+                      </span>
+                      <span className="hidden text-[11px] text-muted-foreground sm:block">
+                        {meta.hint}
+                      </span>
+                    </span>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
           <div
-            className="h-full rounded-full bg-brand transition-[width] duration-300"
-            style={{
-              width: `${((Math.min(step, TOTAL_DATA_STEPS) + 1) / (TOTAL_DATA_STEPS + 1)) * 100}%`,
-            }}
-          />
-        </div>
+            className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-secondary"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={TOTAL_DATA_STEPS + 1}
+            aria-valuenow={Math.min(step, TOTAL_DATA_STEPS) + 1}
+            aria-label={progressLabel}
+          >
+            <div
+              className="h-full rounded-full bg-brand transition-[width] duration-300"
+              style={{
+                width: `${((Math.min(step, TOTAL_DATA_STEPS) + 1) / (TOTAL_DATA_STEPS + 1)) * 100}%`,
+              }}
+            />
+          </div>
+        </nav>
       </CardHeader>
-      <CardContent className="pt-4">
+      <CardContent className="pt-4 sm:pt-5">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
