@@ -92,16 +92,18 @@ export function LeadsDashboard() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    function refresh() {
-      ensureDemoLeads();
+    ensureDemoLeads();
+    setLeads(readLeads());
+
+    function refreshFromStorage() {
       setLeads(readLeads());
     }
-    refresh();
-    window.addEventListener("storage", refresh);
-    window.addEventListener("focus", refresh);
+
+    window.addEventListener("storage", refreshFromStorage);
+    window.addEventListener("focus", refreshFromStorage);
     return () => {
-      window.removeEventListener("storage", refresh);
-      window.removeEventListener("focus", refresh);
+      window.removeEventListener("storage", refreshFromStorage);
+      window.removeEventListener("focus", refreshFromStorage);
     };
   }, []);
 

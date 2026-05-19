@@ -1,7 +1,7 @@
 import { getSeedLeads } from "@/lib/seed-data";
 import type { StoredLead } from "@/types/lead";
 
-const STORAGE_KEY = "client-intake-dashboard:leads";
+export const LEADS_STORAGE_KEY = "client-intake-dashboard:leads";
 
 function isRecord(v: unknown): v is Record<string, unknown> {
   return typeof v === "object" && v !== null;
@@ -18,25 +18,38 @@ function isStoredLead(v: unknown): v is StoredLead {
   );
 }
 
-/** Seeds sample leads when storage is empty (first visit only). */
-export function ensureDemoLeads(): void {
-  if (typeof window === "undefined") return;
+/** True when the leads key is missing, empty, or not a non-empty array. */
+function isLeadsStorageKeyEmpty(): boolean {
+  if (typeof window === "undefined") return false;
+
+  const raw = window.localStorage.getItem(LEADS_STORAGE_KEY);
+  if (raw === null) return true;
+
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed: unknown = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) return;
-    }
-    writeLeads(getSeedLeads());
+    const parsed: unknown = JSON.parse(raw);
+    return !Array.isArray(parsed) || parsed.length === 0;
   } catch {
-    writeLeads(getSeedLeads());
+    return true;
   }
+}
+
+/** Seeds sample leads when the leads storage key is missing or empty. */
+export function ensureDemoLeads(): boolean {
+  if (typeof window === "undefined") return false;
+  if (!isLeadsStorageKeyEmpty()) return false;
+
+  const seedLeads = getSeedLeads();
+  writeLeads(seedLeads);
+  console.log(
+    `[client-intake-dashboard] Seeded ${seedLeads.length} demo leads into localStorage key "${LEADS_STORAGE_KEY}"`,
+  );
+  return true;
 }
 
 export function readLeads(): StoredLead[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = window.localStorage.getItem(LEADS_STORAGE_KEY);
     if (!raw) return [];
     const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
@@ -48,7 +61,7 @@ export function readLeads(): StoredLead[] {
 
 export function writeLeads(leads: StoredLead[]): void {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
+  window.localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(leads));
 }
 
 export function appendLead(lead: StoredLead): void {
