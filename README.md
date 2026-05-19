@@ -42,16 +42,17 @@ Next.js · TypeScript · Tailwind CSS · shadcn/ui · Zod · React Hook Form · 
 ## Running locally
 
 Install dependencies:
-
 ```bash
 pnpm install
 ```
-Run the development server:
 
+Run the development server:
 ```bash
 pnpm dev
 ```
-Then open **[http://localhost:3000](http://localhost:3000)**
+
+Then open:
+http://localhost:3000
 
 ---
 
