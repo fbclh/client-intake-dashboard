@@ -30,10 +30,10 @@ function NavLink({
     <Link
       href={href}
       className={cn(
-        "whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+        "whitespace-nowrap px-2 py-1 text-sm transition-colors sm:px-3",
         active
-          ? "bg-card text-foreground shadow-sm"
-          : "text-muted-foreground hover:bg-card/60 hover:text-foreground",
+          ? "font-semibold text-brand"
+          : "font-normal text-muted-foreground hover:text-foreground",
       )}
     >
       {label}
@@ -50,19 +50,13 @@ export function SiteHeader({ className }: { className?: string }) {
       )}
     >
       <div className="mx-auto flex h-12 min-w-0 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <nav
-          className="flex items-center gap-0.5 rounded-lg border border-border/60 bg-surface/80 p-0.5 sm:p-1"
-          aria-label="Primary left"
-        >
+        <nav className="flex items-center gap-1 sm:gap-2" aria-label="Primary left">
           {leftNav.map((item) => (
             <NavLink key={item.href} {...item} />
           ))}
         </nav>
 
-        <nav
-          className="flex items-center gap-0.5 rounded-lg border border-border/60 bg-surface/80 p-0.5 sm:gap-1 sm:p-1"
-          aria-label="Primary right"
-        >
+        <nav className="flex items-center gap-1 sm:gap-2" aria-label="Primary right">
           {rightNav.map((item) => (
             <NavLink key={item.href} {...item} />
           ))}
