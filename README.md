@@ -4,7 +4,7 @@ A lead intake and qualification dashboard for internal ops teams. Collect inboun
 
 ## Live demo
 
-**[View live demo →](https://client-intake-dashboard.vercel.app)**
+**[View live demo →](https://client-intake-dashboard-ten.vercel.app/)**
 
 Opens with 12 pre-loaded demo leads — no setup required.
 
@@ -31,7 +31,7 @@ Opens with 12 pre-loaded demo leads — no setup required.
 
 ## Development approach
 
-This project was built using an iterative AI-assisted workflow — scoped prompts, phased implementation, and incremental architecture review — as a deliberate methodology for rapid internal tooling. Each phase targeted one layer of the product: intake flow, dashboard, scoring, and analytics. The result is a maintainable codebase delivered quickly, without sacrificing structure for speed. This is the same approach I use with clients who need production-ready tools on tight timelines.
+This project was built using an iterative AI-assisted workflow — scoped prompts, phased implementation, and incremental architecture review — as a deliberate methodology for rapid internal tooling. Each phase targeted one layer of the product: intake flow, dashboard, scoring, and analytics. The result is a maintainable codebase. This is the same approach I use with clients who need production-ready tools.
 
 ## Tech stack
 
