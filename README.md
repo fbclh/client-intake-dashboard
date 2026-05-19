@@ -1,16 +1,10 @@
 # Client Intake Dashboard
 
-A lead intake and qualification dashboard for internal ops teams. Collect inbound requests, score fit, and review pipeline status in one place.
+A lead intake and qualification dashboard built for internal ops teams managing inbound service requests. Capture structured client details across a guided multi-step form, automatically score each lead on budget and urgency fit, and track pipeline status from first contact through qualification — all in one lightweight, self-hosted tool.
 
-## Live demo
+Built using an iterative, AI-assisted workflow — scoped by phase, reviewed incrementally, and shipped in focused layers: intake form, scoring logic, dashboard, and analytics. This is the same methodology I apply with clients who need production-ready internal tooling without the overhead of a full product team.
 
-**[View live demo →](https://client-intake-dashboard-ten.vercel.app/)**
-
-Opens with 12 pre-loaded demo leads — no setup required.
-
-## Screenshots
-
-### Homepage
+### Home
 ![Homepage workflow entry](public/screenshots/Home.png)
 
 ### Intake
@@ -18,6 +12,12 @@ Opens with 12 pre-loaded demo leads — no setup required.
 
 ### Dashboard
 ![Lead dashboard](public/screenshots/Dashboard.png)
+
+## Live demo
+
+**[View live demo →](https://client-intake-dashboard-ten.vercel.app/)**
+
+Opens with 12 pre-loaded demo leads — no setup required.
 
 ## Features
 
@@ -27,24 +27,25 @@ Opens with 12 pre-loaded demo leads — no setup required.
 - Pipeline charts for submissions, status, and scores
 - Lead detail page with notes and activity history
 
-## Development approach
-
-This project was built using an iterative AI-assisted workflow — scoped prompts, phased implementation, and incremental architecture review — as a deliberate methodology for rapid internal tooling. Each phase targeted one layer of the product: intake flow, dashboard, scoring, and analytics. The result is a maintainable codebase. This is the same approach I use with clients who need production-ready tools.
-
 ## Tech stack
 
 Next.js · TypeScript · Tailwind CSS · shadcn/ui · Zod · React Hook Form · Recharts
 
 ## Running locally
 
-Requires [pnpm](https://pnpm.io/).
+Install dependencies:
 
 ```bash
 pnpm install
+```
+Run the development server:
+
+```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Then open:
+[http://localhost:3000](http://localhost:3000)
 
 ## Author
 
