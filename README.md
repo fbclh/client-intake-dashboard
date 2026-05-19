@@ -8,8 +8,6 @@ A lead intake and qualification dashboard for internal ops teams. Collect inboun
 
 Opens with 12 pre-loaded demo leads — no setup required.
 
-![App walkthrough](public/demo.gif)
-
 ## Screenshots
 
 ### Homepage
