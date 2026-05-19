@@ -13,11 +13,15 @@ Built using an iterative, AI-assisted workflow — scoped by phase, reviewed inc
 ### Dashboard
 ![Lead dashboard](public/screenshots/Dashboard.png)
 
+---
+
 ## Live demo
 
 **[View live demo →](https://client-intake-dashboard-ten.vercel.app/)**
 
 Opens with 12 pre-loaded demo leads — no setup required.
+
+---
 
 ## Features
 
@@ -27,9 +31,13 @@ Opens with 12 pre-loaded demo leads — no setup required.
 - Pipeline charts for submissions, status, and scores
 - Lead detail page with notes and activity history
 
+---
+
 ## Tech stack
 
 Next.js · TypeScript · Tailwind CSS · shadcn/ui · Zod · React Hook Form · Recharts
+
+---
 
 ## Running locally
 
@@ -43,9 +51,10 @@ Run the development server:
 ```bash
 pnpm dev
 ```
-
 Then open:
 [http://localhost:3000](http://localhost:3000)
+
+---
 
 ## Author
 
