@@ -17,7 +17,7 @@ Built using an iterative, AI-assisted workflow — scoped by phase, reviewed inc
 
 ## Live demo
 
-**<a href="https://client-intake-dashboard-ten.vercel.app/" target="_blank" rel="noopener noreferrer">View live demo →</a>**
+**[View live demo →](https://client-intake-dashboard-ten.vercel.app/)**
 
 Opens with 12 pre-loaded demo leads — no setup required.
 
@@ -51,8 +51,7 @@ Run the development server:
 ```bash
 pnpm dev
 ```
-Then open:
-[http://localhost:3000](http://localhost:3000)
+Then open **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
