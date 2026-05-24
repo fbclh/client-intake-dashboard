@@ -17,7 +17,7 @@ Built using an iterative, AI-assisted workflow — scoped by phase, reviewed inc
 
 ## Live demo
 
-**[View live demo →](https://client-intake-dashboard-ten.vercel.app/)**
+**[View live demo →](https://client-intake-dashboard-fbclh.vercel.app/)**
 
 Opens with 12 pre-loaded demo leads — no setup required.
 
