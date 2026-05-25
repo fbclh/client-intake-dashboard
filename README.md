@@ -2,7 +2,7 @@
 
 A lead intake and qualification dashboard built for internal ops teams managing inbound service requests. Capture structured client details across a guided multi-step form, automatically score each lead on budget and urgency fit, and track pipeline status from first contact through qualification — all in one lightweight, self-hosted tool.
 
-Built using an iterative, AI-assisted workflow — scoped by phase, reviewed incrementally, and shipped in focused layers: intake form, scoring logic, dashboard, and analytics. This is the same methodology I apply with clients who need production-ready internal tooling without the overhead of a full product team.
+Delivered in layers — intake form, scoring logic, dashboard, and analytics — as a self-contained Next.js app. Demo data persists in the browser via localStorage; the project runs and evaluates fully without a backend.
 
 ### Home
 ![Homepage workflow entry](public/screenshots/Home.png)
